@@ -9,6 +9,8 @@ urlpatterns = [
 
     path('year_from_body/',MovieFromBody.as_view()),
 
+    path('movies_actors/',MoviesActors.as_view()),
+
     path('actor/',ActorView.as_view()),
     path('detail_actor/<int:pk>/',ActorDetailView.as_view()),
     # path('actor_year/<int:pk>/',ActorYear.as_view()),

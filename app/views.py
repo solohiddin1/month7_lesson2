@@ -5,6 +5,7 @@ from rest_framework.decorators import api_view
 from .models import Movie, Actor
 from rest_framework import status
 from .seializers import MovieSerializer,ActorSerializer
+from django.db.models import Count
 
 # Create your views here.
 
@@ -77,6 +78,13 @@ class MovieFromBody(APIView):
 
         return Response(serializer.data,status=status.HTTP_200_OK)
 
+
+class MoviesActors(APIView):
+    def get(self,request):
+        movies = Movie.objects.annotate(actors_count = Count('actor')).filter(actors_count__lte=3)
+
+        serializer = MovieSerializer(movies,many=True)
+        return Response(serializer.data,status=status.HTTP_200_OK)
 
 # ---------------------------------------------------------------------
 
